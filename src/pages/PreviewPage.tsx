@@ -5,6 +5,7 @@ import type { RootState } from '../store/store'
 import FormFieldRenderer from '../components/FormFieldRenderer'
 import { runValidations } from '../utils/validators'
 import { evaluateDerivedExpression } from '../utils/derived'
+import { useNavigate } from 'react-router-dom'
 
 export default function PreviewPage() {
   const { currentFields } = useSelector((s: RootState) => s.formBuilder)
@@ -19,6 +20,7 @@ export default function PreviewPage() {
   const [values, setValues] = useState<Record<string, any>>(initialValues)
   const [errors, setErrors] = useState<Record<string, string | null>>({})
   const [submitResult, setSubmitResult] = useState<string | null>(null)
+  const navigate = useNavigate();
 
   useEffect(() => setValues(initialValues), [initialValues])
 
@@ -85,6 +87,10 @@ useEffect(() => {
     return <Alert severity="info">No fields in the builder yet. Go to Create to add fields.</Alert>
   }
 
+  const navigateToCreate = () => {
+    navigate("/create")
+  }
+
   return (
     <Box>
       <Typography variant="h5" gutterBottom>Preview</Typography>
@@ -103,7 +109,7 @@ useEffect(() => {
         </Grid>
         <Box mt={2} display="flex" gap={1}>
           <Button variant="contained" onClick={handleSubmit}>Submit</Button>
-          <Button variant="outlined" href="/create">Edit form</Button>
+          <Button variant="outlined" onClick={navigateToCreate}>Edit form</Button>
         </Box>
         {submitResult && <Alert sx={{ mt:2 }}>{submitResult}</Alert>}
       </Paper>
