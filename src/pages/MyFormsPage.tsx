@@ -32,6 +32,10 @@ export default function MyFormsPage() {
     dispatch(deleteSavedForm(id));
   };
 
+  const navigateToCreate = () => {
+    navigate("/create");
+  }
+
   return (
     <Box>
       <Typography variant="h5" gutterBottom>
@@ -65,7 +69,7 @@ export default function MyFormsPage() {
           </List>
         )}
         <Box mt={2}>
-          <Button href="/create">Create new form</Button>
+          <Button onClick={navigateToCreate}>Create new form</Button>
         </Box>
       </Paper>
     </Box>

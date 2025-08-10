@@ -23,6 +23,7 @@ import { detectCycle } from "../utils/derived";
 
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../store/store";
+import { useNavigate } from "react-router-dom";
 const useApp = () => {
   const dispatch = useDispatch();
   const state = useSelector((s: RootState) => s.formBuilder);
@@ -32,6 +33,7 @@ const useApp = () => {
 export default function CreatePage() {
   const { dispatch, state } = useApp();
   const { currentFields } = state;
+  const navigate = useNavigate();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [showSave, setShowSave] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -66,6 +68,10 @@ export default function CreatePage() {
     dispatch(saveForm({ name }));
     setShowSave(false);
   };
+
+  const navigateToPreview = () => {
+    navigate("/preview")
+  }
 
   return (
     <Grid container spacing={2}>
@@ -108,7 +114,7 @@ export default function CreatePage() {
             <Button variant="contained" onClick={() => setShowSave(true)}>
               Save Form
             </Button>
-            <Button variant="outlined" href="/preview">
+            <Button variant="outlined" onClick={navigateToPreview}>
               Preview
             </Button>
           </Box>
