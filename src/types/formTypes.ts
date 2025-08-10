@@ -20,12 +20,11 @@ export interface FormField {
   type: FieldType
   required?: boolean
   defaultValue?: any
-  options?: string[] // for select / radio / checkbox
+  options?: string[]
   validations?: ValidationRule[]
-  // Derived field settings:
   isDerived?: boolean
-  parents?: string[] // parent field ids
-  expression?: string // e.g. "Math.floor((Date.now() - new Date({{dob}}))/31557600000)"
+  parents?: string[]
+  expression?: string
 }
 
 export interface FormSchema {
@@ -33,5 +32,5 @@ export interface FormSchema {
   name: string
   title?: string
   fields: FormField[]
-  createdAt: string // ISO
+  createdAt: string
 }
