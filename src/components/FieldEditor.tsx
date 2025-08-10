@@ -42,30 +42,33 @@ export default function FieldEditor({ field, allFields, onChange }: Props) {
     onChange(field.id, changes);
   };
 
-  const setValidation = (type: ValidationRule['type'], value?: string | number) => {
-  let rules = local.validations ? [...local.validations] : [];
-  const idx = rules.findIndex(r => r.type === type);
+  const setValidation = (
+    type: ValidationRule["type"],
+    value?: string | number
+  ) => {
+    let rules = local.validations ? [...local.validations] : [];
+    const idx = rules.findIndex((r) => r.type === type);
 
-  if (idx >= 0) {
-    rules.splice(idx, 1);
-  } else {
-    if (type === 'required') {
-      rules.push({ id: uuidv4(), type: 'required', message: 'Required' });
+    if (idx >= 0) {
+      rules.splice(idx, 1);
     } else {
-      rules.push({ id: uuidv4(), type, value, message: undefined });
+      if (type === "required") {
+        rules.push({ id: uuidv4(), type: "required", message: "Required" });
+      } else {
+        rules.push({ id: uuidv4(), type, value, message: undefined });
+      }
     }
-  }
 
-  commit({ validations: rules });
-};
+    commit({ validations: rules });
+  };
 
   const onExpressionChange = (expr: string) => {
     const parents = extractParentsFromExpression(expr);
     commit({ expression: expr, parents });
   };
 
-const hasValidation = (type: ValidationRule['type']) =>
-  local.validations?.some(v => v.type === type) ?? false;
+  const hasValidation = (type: ValidationRule["type"]) =>
+    local.validations?.some((v) => v.type === type) ?? false;
 
   return (
     <Paper sx={{ p: 2, mb: 2 }}>
